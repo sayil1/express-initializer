@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>OnePage Bootstrap Template - Index</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+
+    <link href="assets/img/favicon.png" rel="icon">
+    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
+    <script src="https://unpkg.com/vue-router"></script>
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
+    <!-- Latest compiled and minified CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link href="assets/css/style.css" rel="stylesheet">
+
+    <!-- =======================================================
+  * Template Name: OnePage - v4.6.0
+  * Template URL: https://bootstrapmade.com/onepage-multipurpose-bootstrap-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+
+    <style>
+        .form-control:focus {
+            box-shadow: none;
+        }
+        
+        .form-control-underlined {
+            border-width: 0;
+            border-bottom-width: 1px;
+            border-radius: 0;
+            padding-left: 0;
+        }
+        
+        body {
+            background: #ffd89b;
+            background: -webkit-linear-gradient(to right, #ffd89b, #19547b);
+            background: linear-gradient(to right, #ffd89b, #19547b);
+            min-height: 100vh;
+        }
+        
+        .form-control::placeholder {
+            font-size: 0.95rem;
+            color: #aaa;
+            font-style: italic;
+        }
+        
+        .pkgs {
+            padding: 2%;
+        }
+        
+        .pkgs:hover {
+            background-color: rgb(9, 58, 73);
+            opacity: 0.5;
+            color: aliceblue;
+            cursor: pointer;
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <div id="app">
+
+        <section id="hero" class="d-flex align-items-left">
+            <div class="container position-relative" data-aos="fade-up" data-aos-delay="100">
+                <div class="row justify-content-center pb-5">
+                    <div class="col-xl-7 col-lg-9 text-center">
+                        <h1>Express Initializr</h1>
+
+                    </div>
+                </div>
+
+
+
+
+                <div class="row ">
+                    <form action="forms/contact.php" method="post" role="form" class="php-email-form col-md-6 col-lg-6 mr-5">
+                        <h4 class="mt-2">Package Manager</h4>
+                        <hr>
+                        <div class="row pb-3">
+                            <div class="col-lg-3">
+                                <input v-model='app_data.app_details.package_manager' class="form-check-input" type="radio" value="npm" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+                                <label class="form-check-label " for="exampleRadios1">
+                          NPM
+                        </label>
+                            </div>
+                            <div class="col-lg-3">
+                                <input v-model='app_data.app_details.package_manager' class="form-check-input" type="radio" value="yarn" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+                                <label class="form-check-label " for="exampleRadios1">
+                        Yarn
+                      </label>
+                            </div>
+
+                        </div>
+                        <hr>
+
+
+
+                        <div class=" form-group">
+                            <input v-model='app_data.app_details.app_name' type="text" name="name" class="form-control" id="name" placeholder="Project Name" required>
+                        </div>
+                        <div class=" form-group mt-3 mt-md-3">
+                            <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
+                        </div>
+
+
+                        <div class="text-center pt-3">
+                            <button v-on:click=" submitData()" class="btn btn-primary scrollto">Generate now</button>
+                        </div>
+                    </form>
+
+
+                    <div class="col-md-6 col-lg-6  ml-5 mb-5 mb-lg-0" data-aos="zoom-in" data-aos-delay="300">
+
+                        <div class="faq-list">
+                            <div class="row">
+                                <div class="col-md 4">
+                                    <h4>Packages</h4>
+                                </div>
+                                <div class="col-md 4">
+                                </div>
+                                <div class="col-md 4">
+                                    <button data-toggle="modal" data-target="#exampleModalCenter" type="button" class="btn btn-outline-primary">Add Packages</button>
+                                </div>
+
+                            </div>
+
+                            <hr>
+                            <ul>
+                                <li data-aos="fade-up" v-for="(item , i) in app_data.packages" :key="item.message">
+                                    <div id="faq-list-1" class="collapse show pb-3" data-bs-parent=".faq-list">
+                                        <div class="row">
+                                            <div class="col-md-8">
+                                                <h5> {{item.name}}</h5>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <button v-on:click=' removePkgs(item, i)' type="button" class="close btn btn-outline-primary" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                              </button>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </li>
+
+
+
+
+                            </ul>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </section>
+        <!-- Button trigger modal -->
+
+
+        <!-- Modal -->
+        <div class="modal  fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div style="position:sticky;" class="modal-header">
+                        <input style="width: 100%;" type="search" @keydown="search($event)" placeholder="What're you searching for?" aria-describedby="button-addon3" class="form-control bg-none border-0" v-model='search_field'>
+
+                        <div class="row">
+                            <div class="col-lg-12 col-md-8">
+
+                            </div>
+                            <div class="col-lg-4 col-md-4">
+                                <button type="button" class="close btn-outline-primary" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-body ">
+                        <div class="modal-body">
+                            <div data-dismiss="modal" class="pkgs" v-for="item in  search_packages" v-on:click="addPkgs(item)">
+                                <h4 class="">{{item.package.name}}</h4>
+                                <p>{{item.package.description}}</p>
+                                <!-- <p> <button type="button" class="btn btn-primary">add</button></p> -->
+                                <hr>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <!-- ======= Footer ======= -->
+
+    <!-- End Footer -->
+
+
+    <div id="preloader"></div>
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+    <!-- Vendor JS Files -->
+    <script src="assets/vendor/aos/aos.js"></script>
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="assets/vendor/php-email-form/validate.js"></script>
+    <script src="assets/vendor/purecounter/purecounter.js"></script>
+    <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="assets/js/main.js"></script>
+
+
+</body>
+
+
+</html>
+
+
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            search_field: '',
+            search_packages: [],
+            selected_packages: [],
+            message: 'Hello Vue!',
+            app_data: {
+                search_field: '',
+                app_details: {
+                    app_name: '',
+                    package_manager: '',
+                },
+                packages: [{
+                    name: 'express',
+                    description: ''
+                }, {
+                    name: 'cors',
+                    description: ''
+                }, {
+                    name: 'body-parser',
+                    description: ''
+                }, {
+                    name: 'Mongo',
+                    description: ''
+                }]
+
+            },
+            spinner: false
+        },
+        created() {
+            // alert("can you see this>")
+        },
+        mounted() {
+            window.addEventListener("keydown", this.search);
+
+        },
+        methods: {
+            getKeyboard: function(event) {
+                console.log(event.key)
+            },
+            search: function(event) {
+                console.log('Key pressed:', this.search_field);
+                axios.get(`https://api.npms.io/v2/search/suggestions?q=${this.search_field}`).then(data => {
+                    console.log(data.data, "returned results")
+                    this.search_packages = data.data
+                })
+            },
+            addPkgs: function(data) {
+                console.log(data.package.name, "data")
+                this.app_data.packages.push({
+                    name: data.package.name,
+                    description: data.package.description
+                })
+
+                console.log(this.app_data.packages)
+
+            },
+            removePkgs(pkgs, i) {
+
+                this.app_data.packages.splice(i, 1);
+
+                console.log(this.app_data.packages, "array")
+
+            },
+            submitData: function() {
+                var self = this
+                console.log(this.app_data)
+                axios.post('http://localhost:3000/generate', this.app_data)
+            }
+        }
+    })
+</script>

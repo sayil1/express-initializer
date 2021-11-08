@@ -27,11 +27,13 @@ class NpmGenerator extends Generator {
   }
 
   public convertTsArrayTo() {
-    return "data=${data// /}\n data=${data//,/ }\n data=${data##[}\n data=${data%]}\n eval data=($data)\n echo ${data[2]}";
+    return "data=${data// /}\n data=${data//,/ }\n data=${data##[}\n data=${data%]}\n eval data=($data)\n";
   }
 
   public runInstallationLoop() {
-    return 'for pkgs in "${data[@]}" \n do \n npm i ${pkgs} \n done';
+    return (
+      "for pkgs in ${data[@]} \n do \n npm i ${pkgs} \n echo import ${pkgs//-/} from   \'${pkgs}\'   >> index.ts \n done"
+    );
   }
 
   pkgs: string[] = [];
@@ -55,10 +57,17 @@ class NpmGenerator extends Generator {
       data="[${this.pkgs}]"
       ${this.convertTsArrayTo()}
 ${this.runInstallationLoop()}
-     
-    
-           
-     `;
+cat << EOF >> index.ts
+
+const app = express();
+app.get('/', (req, res) => {
+    res.send('Well done!');
+})
+app.listen(3000, () => {
+    console.log('The application is listening on port 3000!');
+ });
+EOF
+ `;
   }
 }
 

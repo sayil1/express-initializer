@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>OnePage Bootstrap Template - Index</title>
+    <title>Express Initializer</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -107,7 +107,7 @@
                         <hr>
                         <div class="row pb-3">
                             <div class="col-lg-3">
-                                <input v-model='app_data.app_details.package_manager' class="form-check-input" type="radio" value="npm" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+                                <input checked v-model='app_data.app_details.package_manager' class="form-check-input" type="radio" value="npm" name="exampleRadios" id="exampleRadios1" value="option1" checked>
                                 <label class="form-check-label " for="exampleRadios1">
                           NPM
                         </label>
@@ -120,10 +120,11 @@
                             </div>
 
                         </div>
+
+
+
+                        <h4 class="mt-2">Project Data</h4>
                         <hr>
-
-
-
                         <div class=" form-group">
                             <input v-model='app_data.app_details.app_name' type="text" name="name" class="form-control" id="name" placeholder="Project Name" required>
                         </div>
@@ -277,9 +278,6 @@
                 }, {
                     name: 'body-parser',
                     description: ''
-                }, {
-                    name: 'Mongo',
-                    description: ''
                 }]
 
             },
@@ -309,16 +307,11 @@
                     name: data.package.name,
                     description: data.package.description
                 })
-
                 console.log(this.app_data.packages)
 
             },
             removePkgs(pkgs, i) {
-
                 this.app_data.packages.splice(i, 1);
-
-                console.log(this.app_data.packages, "array")
-
             },
             submitData: function() {
                 var self = this

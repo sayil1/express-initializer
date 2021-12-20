@@ -70,51 +70,75 @@ EOF
  `;
   }
 }
+app.use(express.static(__dirname + '/public'));
 
-app.post("/generate", (req, res, next) => {
-  let content: any = new NpmGenerator(req.body.packages, req.body.app_details);
-  //   console.log(content.generate())
+app.get('/', function(req, res) {
+  res.sendFile(path.join(__dirname, '/index.html'));
+});
+
+app.post("/generate", async (req, res, next) => {
   try {
+    let content: any = await new NpmGenerator(
+      req.body.packages,
+      req.body.app_details
+    );
     fs.mkdirSync("starter");
-    fs.writeFileSync("starter/starter.sh", content.generate());
+    await fs.writeFileSync("starter/starter.sh", content.generate());
     res.send({
       error: false,
-      message: "successful",
+      message: "file generated",
     });
   } catch (error) {
-    res.send(error);
+    res.send({
+      error: true,
+      message: "file already generated",
+    });
   }
 
-  // testing downloads
-  var to_zip = fs.readdirSync(__dirname + "/" + "starter");
-
-  var zp = new admz();
-
-  for (var k = 0; k < to_zip.length; k++) {
-    zp.addLocalFile(__dirname + "/" + "starter" + "/" + to_zip[k]);
-  }
-  const file_after_download = "downloaded_file.zip";
-  const data = zp.toBuffer();
-  res.set("Content-Type", "application/octet-stream");
-  res.set("Content-Disposition", `attachment; filename=${file_after_download}`);
-  res.set("Content-Length", data.length);
-  res.send(data);
-
-  //   console.log(packages, "packages");
+  // var to_zip = fs.readdirSync(__dirname + "/" + "starter");
+  // var zp = new admz();
+  // for (var k = 0; k < to_zip.length; k++) {
+  //   zp.addLocalFile(__dirname + "/" + "starter" + "/" + to_zip[k]);
+  // }
+  // const file_after_download = "downloaded_file.zip";
+  // const data = zp.toBuffer();
+  // res.set("Content-Type", "application/octet-stream");
+  // res.set("Content-Disposition", `attachment; filename=${file_after_download}`);
+  // res.set("Content-Length", data.length);
 });
 
 app.get("/download", (req, res, next) => {
-  var to_zip = fs.readdirSync(__dirname + "/" + "starter");
-  var zp = new admz();
-  for (var k = 0; k < to_zip.length; k++) {
-    zp.addLocalFile(__dirname + "/" + "starter" + "/" + to_zip[k]);
-  }
-  const file_after_download = "downloaded_file.zip";
-  const data = zp.toBuffer();
-  res.set("Content-Type", "application/octet-stream");
-  res.set("Content-Disposition", `attachment; filename=${file_after_download}`);
-  res.set("Content-Length", data.length);
-  res.send(data);
+  fs.access(__dirname + "/" + "starter", error => {
+    if (!error) {
+        // The check succeeded
+        res.send("found")
+    } else {
+        // The check failed
+        res.send("not found")
+
+
+    }
+});
+
+
+    // var to_zip = fs.readdirSync(__dirname + "/" + "starter");
+    // var zp = new admz();
+    // for (var k = 0; k < to_zip.length; k++) {
+    //   zp.addLocalFile(__dirname + "/" + "starter" + "/" + to_zip[k]);
+    // }
+    // const file_after_download = "downloaded_file.zip";
+    // const data = zp.toBuffer();
+    // res.set("Content-Type", "application/octet-stream");
+    // res.set(
+    //   "Content-Disposition",
+    //   `attachment; filename=${file_after_download}`
+    // );
+    // res.set("Content-Length", data.length);
+    // res.send({
+    //   error: false,
+    //   message: "file downloading",
+    // });
+  
 });
 
 app.listen(port, () => {

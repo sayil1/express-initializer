@@ -1,2 +1,7 @@
 # express-initializer
-This app allows users to quic
+easily generate an express app with typescript by adding desired packages
+
+
+[[build]]
+== Building from Source
+you will need nodejs,typescrpt and a bash-like shell.

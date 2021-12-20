@@ -102,7 +102,7 @@
 
 
                 <div class="row ">
-                    <form method="post" role="form" class="php-email-form col-md-6 col-lg-6 mr-5">
+                    <div class="php-email-form col-md-6 col-lg-6 mr-5">
                         <h4 class="mt-2">Package Manager</h4>
                         <hr>
                         <div class="row pb-3">
@@ -140,7 +140,7 @@
                         <div class="text-center pt-3" v-if="downloadable">
                             <button v-on:click="downloadZipped()" class="btn btn-primary scrollto">Download</button>
                         </div>
-                    </form>
+                    </div>
 
 
                     <div class="col-md-6 col-lg-6  ml-5 mb-5 mb-lg-0" data-aos="zoom-in" data-aos-delay="300">
@@ -315,7 +315,7 @@
             submitData: function() {
                 var self = this
                     // console.log(this.app_data)
-                axios.post('http://localhost:3000/generate', this.app_data).then((resp) => {
+                axios.post('/generate', this.app_data).then((resp) => {
                     console.log(resp.data)
                     if (resp.data.error == false) {
                         this.downloadable = true
@@ -326,16 +326,17 @@
 
             downloadZipped: function() {
                 axios({
-                    url: 'http://localhost:3000/download',
+                    url: '/download',
                     method: 'GET',
                     responseType: 'blob',
                 }).then((response) => {
                     var fileURL = window.URL.createObjectURL(new Blob([response.data]));
                     var fileLink = document.createElement('a');
                     fileLink.href = fileURL;
-                    fileLink.setAttribute('download', 'file.zip');
+                    fileLink.setAttribute('download', 'starter.zip');
                     document.body.appendChild(fileLink);
                     fileLink.click();
+                    console.log(response.data, "sent data")
                 });
             }
         }

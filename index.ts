@@ -54,6 +54,7 @@ class NpmGenerator extends Generator {
       mkdir $app_name 
       cd $app_name 
       npm init -y
+      tsc --init
       data="[${this.pkgs}]"
       ${this.convertTsArrayTo()}
 ${this.runInstallationLoop()}
@@ -70,10 +71,10 @@ EOF
  `;
   }
 }
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + "/public"));
 
-app.get('/', function(req, res) {
-  res.sendFile(path.join(__dirname, '/index.html'));
+app.get("/", function (req, res) {
+  res.sendFile(path.join(__dirname, "/index.html"));
 });
 
 app.post("/generate", async (req, res, next) => {
@@ -108,37 +109,17 @@ app.post("/generate", async (req, res, next) => {
 });
 
 app.get("/download", (req, res, next) => {
-  fs.access(__dirname + "/" + "starter", error => {
-    if (!error) {
-        // The check succeeded
-        res.send("found")
-    } else {
-        // The check failed
-        res.send("not found")
-
-
-    }
-});
-
-
-    // var to_zip = fs.readdirSync(__dirname + "/" + "starter");
-    // var zp = new admz();
-    // for (var k = 0; k < to_zip.length; k++) {
-    //   zp.addLocalFile(__dirname + "/" + "starter" + "/" + to_zip[k]);
-    // }
-    // const file_after_download = "downloaded_file.zip";
-    // const data = zp.toBuffer();
-    // res.set("Content-Type", "application/octet-stream");
-    // res.set(
-    //   "Content-Disposition",
-    //   `attachment; filename=${file_after_download}`
-    // );
-    // res.set("Content-Length", data.length);
-    // res.send({
-    //   error: false,
-    //   message: "file downloading",
-    // });
-  
+  var to_zip = fs.readdirSync(__dirname + "/" + "starter");
+  var zp = new admz();
+  for (var k = 0; k < to_zip.length; k++) {
+    zp.addLocalFile(__dirname + "/" + "starter" + "/" + to_zip[k]);
+  }
+  const file_after_download = "downloaded_file.zip";
+  const data = zp.toBuffer();
+  res.set("Content-Type", "application/octet-stream");
+  res.set("Content-Disposition", `attachment; filename=${file_after_download}`);
+  res.set("Content-Length", data.length);
+  res.send(data);
 });
 
 app.listen(port, () => {

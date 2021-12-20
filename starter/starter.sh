@@ -1,8 +1,9 @@
 #!/bin/sh 
-      app_name=""
+      app_name="codeKiss2"
       mkdir $app_name 
       cd $app_name 
       npm init -y
+      tsc --init
       data="[express,cors,body-parser]"
       data=${data// /}
  data=${data//,/ }

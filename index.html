@@ -136,6 +136,10 @@
                         <div class="text-center pt-3">
                             <button v-on:click=" submitData()" class="btn btn-primary scrollto">Generate now</button>
                         </div>
+
+                        <div class="text-center pt-3">
+                            <button v-on:click="downloadZipped()" class="btn btn-primary scrollto">Download</button>
+                        </div>
                     </form>
 
 
@@ -172,15 +176,9 @@
                                         </div>
                                     </div>
                                 </li>
-
-
-
-
                             </ul>
                         </div>
                     </div>
-
-
                 </div>
             </div>
         </section>
@@ -315,8 +313,25 @@
             },
             submitData: function() {
                 var self = this
-                console.log(this.app_data)
-                axios.post('http://localhost:3000/generate', this.app_data)
+                    // console.log(this.app_data)
+                axios.post('http://localhost:3000/generate', this.app_data).then(data => {
+                    console.log(data)
+                })
+            },
+
+            downloadZipped: function() {
+                axios({
+                    url: 'http://localhost:3000/download',
+                    method: 'GET',
+                    responseType: 'blob',
+                }).then((response) => {
+                    var fileURL = window.URL.createObjectURL(new Blob([response.data]));
+                    var fileLink = document.createElement('a');
+                    fileLink.href = fileURL;
+                    fileLink.setAttribute('download', 'file.zip');
+                    document.body.appendChild(fileLink);
+                    fileLink.click();
+                });
             }
         }
     })

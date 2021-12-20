@@ -1,9 +1,9 @@
 #!/bin/sh 
-      app_name="tested"
+      app_name=""
       mkdir $app_name 
       cd $app_name 
       npm init -y
-      data="['express','cors','body-parser']"
+      data="[express,cors,body-parser,postgrator,mongoose]"
       data=${data// /}
  data=${data//,/ }
  data=${data##[}
@@ -12,7 +12,7 @@
 
 for pkgs in ${data[@]} 
  do 
-#  npm i ${pkgs} 
+ npm i ${pkgs} 
  echo import ${pkgs//-/} from   \"${pkgs}\"   >> index.ts 
  done
 cat << EOF >> index.ts

@@ -2,7 +2,9 @@ import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
 import fs from "fs";
+const path = require("path");
 const app = express();
+const admz = require("adm-zip");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -31,9 +33,7 @@ class NpmGenerator extends Generator {
   }
 
   public runInstallationLoop() {
-    return (
-      "for pkgs in ${data[@]} \n do \n npm i ${pkgs} \n echo import ${pkgs//-/} from   \'${pkgs}\'   >> index.ts \n done"
-    );
+    return 'for pkgs in ${data[@]} \n do \n npm i ${pkgs} \n echo import ${pkgs//-/} from   \\"${pkgs}\\"   >> index.ts \n done';
   }
 
   pkgs: string[] = [];
@@ -71,13 +71,50 @@ EOF
   }
 }
 
-app.post("/generate", (req, res) => {
+app.post("/generate", (req, res, next) => {
   let content: any = new NpmGenerator(req.body.packages, req.body.app_details);
   //   console.log(content.generate())
+  try {
+    fs.mkdirSync("starter");
+    fs.writeFileSync("starter/starter.sh", content.generate());
+    res.send({
+      error: false,
+      message: "successful",
+    });
+  } catch (error) {
+    res.send(error);
+  }
 
-  fs.writeFileSync("tester.sh", content.generate());
+  // testing downloads
+  var to_zip = fs.readdirSync(__dirname + "/" + "starter");
+
+  var zp = new admz();
+
+  for (var k = 0; k < to_zip.length; k++) {
+    zp.addLocalFile(__dirname + "/" + "starter" + "/" + to_zip[k]);
+  }
+  const file_after_download = "downloaded_file.zip";
+  const data = zp.toBuffer();
+  res.set("Content-Type", "application/octet-stream");
+  res.set("Content-Disposition", `attachment; filename=${file_after_download}`);
+  res.set("Content-Length", data.length);
+  res.send(data);
 
   //   console.log(packages, "packages");
+});
+
+app.get("/download", (req, res, next) => {
+  var to_zip = fs.readdirSync(__dirname + "/" + "starter");
+  var zp = new admz();
+  for (var k = 0; k < to_zip.length; k++) {
+    zp.addLocalFile(__dirname + "/" + "starter" + "/" + to_zip[k]);
+  }
+  const file_after_download = "downloaded_file.zip";
+  const data = zp.toBuffer();
+  res.set("Content-Type", "application/octet-stream");
+  res.set("Content-Disposition", `attachment; filename=${file_after_download}`);
+  res.set("Content-Length", data.length);
+  res.send(data);
 });
 
 app.listen(port, () => {
